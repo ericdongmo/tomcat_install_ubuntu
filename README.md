@@ -1,4 +1,4 @@
-##Hi,
+## Hi,
 
 In this tutorial we will install Tomcat 9 on Ubuntu 18.04.
 
@@ -71,10 +71,17 @@ sudo chown -R tomcat: tomcat
 sudo chmod o+x /opt/tomcat/bin/
 ```
 
-Step 5 – Creating a SystemD Service File for Tomcat
-To install Tomcat as system service we will create a file called tomcat.service in the /etc/systemd/system directory.
+## Step 5 – Creating a SystemD Service File for Tomcat
+
+To install Tomcat as system service we will create a file called **tomcat.service** in the **/etc/systemd/system** directory.
+
+```
 sudo nano /etc/systemd/system/tomcat.service
+```
+
 Add the following to tomcat.service file
+
+```
 [Unit]
 Description=Tomcat 9 Server
 After=network.target
@@ -100,24 +107,51 @@ RestartSec=10
 Restart=always
 [Install]
 WantedBy=multi-user.target
-Save and the exit file.
-Restart systemctl daemon.
-sudo systemctl daemon-reload
+```
 
-To start the tomcat service.
+Save and the exit file. Restart systemctl daemon.
+
+```
+sudo systemctl daemon-reload
+```
+
+To start the tomcat service :
+
+```
 sudo systemctl start tomcat
-To monitor tomcat log file.
+```
+
+To monitor tomcat log file :
+
+```
 tail -f /opt/tomcat/logs/catalina.out
+```
+
 If there is no error, you will get similar to below output:
- 
+ ![]()
 We can now access tomcat at:
-http://<public-ip>:8080/
-To enable Tomcat service on system boot:
+
+```
+http://<public-machine-ip>:8080/
+```
+![]()
+To start Tomcat service on system boot:
+
+```
 sudo systemctl enable tomcat
+```
+
 The default Tomcat port is 8080, so we need to allow that port on Ubuntu firewall.
+
+```
 sudo ufw allow 8080/tcp
+```
+
 Check firewall status:
+
+```
 sudo ufw status
+```
 
 Step 6 – Enable and Secure Tomcat Web Application and Virtual Host Manager
 Tomcat has a Web Application Manager and Virtual Host Manager app that come preinstalled. In order to use these, we have to first secure them with authentication and authorization. This is done via the tomcat-users.xml file. Open and edit tomcat-users.xml:
