@@ -22,7 +22,8 @@ After installation check if java is installed correctly by executing below comma
 ```
 $ java -version
 ```
-![image-title-here](/path/to/image.jpg)
+
+![](one.png)
  
 If java is installed, the output should look similar to above depending upon what is the latest version of java at that time.
 
@@ -128,13 +129,17 @@ $ sudo tail -f /opt/tomcat/logs/catalina.out
 ```
 
 If there is no error, you will get similar to below output:
- ![]()
+
+ ![](two.png)
+ 
 We can now access tomcat at:
 
 ```
 http://<public-machine-ip>:8080/
 ```
-![]()
+
+![](five.png)
+
 To start Tomcat service on system boot:
 
 ```
