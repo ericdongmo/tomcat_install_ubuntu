@@ -1,4 +1,4 @@
-## Hi,
+### Hi,
 
 In this tutorial we will install Tomcat 9 on Ubuntu 18.04.
 
@@ -58,8 +58,8 @@ $ sudo mv apache-tomcat-9.0.21 tomcat
 Also modify ownership and permissions of **/opt/tomcat** directory.
 
 ```
-sudo tar -xvzf apache-tomcat-9.0.21.tar.gz
-sudo mv apache-tomcat-9.0.21 tomcat
+$ sudo tar -xvzf apache-tomcat-9.0.21.tar.gz
+$ sudo mv apache-tomcat-9.0.21 tomcat
 ```
 
 ## Step 4 – Change Permission and Ownership of Tomcat home directory
@@ -67,8 +67,8 @@ sudo mv apache-tomcat-9.0.21 tomcat
 Next we will modify ownership and permission of **/opt/tomcat** directory. We will also give executed permission to **opt/tomcat/bin/** directory.
 
 ```
-sudo chown -R tomcat: tomcat
-sudo chmod o+x /opt/tomcat/bin/
+$ sudo chown -R tomcat: tomcat
+$ sudo chmod o+x /opt/tomcat/bin/
 ```
 
 ## Step 5 – Creating a SystemD Service File for Tomcat
@@ -76,7 +76,7 @@ sudo chmod o+x /opt/tomcat/bin/
 To install Tomcat as system service we will create a file called **tomcat.service** in the **/etc/systemd/system** directory.
 
 ```
-sudo nano /etc/systemd/system/tomcat.service
+$ sudo nano /etc/systemd/system/tomcat.service
 ```
 
 Add the following to tomcat.service file
@@ -112,19 +112,19 @@ WantedBy=multi-user.target
 Save and the exit file. Restart systemctl daemon.
 
 ```
-sudo systemctl daemon-reload
+$ sudo systemctl daemon-reload
 ```
 
 To start the tomcat service :
 
 ```
-sudo systemctl start tomcat
+$ sudo systemctl start tomcat
 ```
 
 To monitor tomcat log file :
 
 ```
-tail -f /opt/tomcat/logs/catalina.out
+$ sudo tail -f /opt/tomcat/logs/catalina.out
 ```
 
 If there is no error, you will get similar to below output:
@@ -138,60 +138,100 @@ http://<public-machine-ip>:8080/
 To start Tomcat service on system boot:
 
 ```
-sudo systemctl enable tomcat
+$ sudo systemctl enable tomcat
 ```
 
 The default Tomcat port is 8080, so we need to allow that port on Ubuntu firewall.
 
 ```
-sudo ufw allow 8080/tcp
+$ sudo ufw allow 8080/tcp
 ```
 
 Check firewall status:
 
 ```
-sudo ufw status
+$ sudo ufw status
 ```
 
-Step 6 – Enable and Secure Tomcat Web Application and Virtual Host Manager
-Tomcat has a Web Application Manager and Virtual Host Manager app that come preinstalled. In order to use these, we have to first secure them with authentication and authorization. This is done via the tomcat-users.xml file. Open and edit tomcat-users.xml:
-sudo nano /opt/tomcat/conf/tomcat-users.xml
-Add the following between <tomcat-users> tags and save. The roles required to access Web Application Manager and Virtual Host Manager are manager-gui and admin-gui respectively.
+## Step 6 – Enable and Secure Tomcat Web Application Manager and Virtual Host Manager
+
+Tomcat has a **Web Application Manager** and **Virtual Host Manager** app that come preinstalled. In order to use these, we have to first secure them with authentication and authorization. This is done via the **tomcat-users.xml** file. Open and edit tomcat-users.xml:
+
+```
+$ sudo nano /opt/tomcat/conf/tomcat-users.xml
+```
+
+Add the following between **<tomcat-users>** tags and save. The roles required to access Web Application Manager and Virtual Host Manager are **manager-gui** and **admin-gui** respectively.
+ 
+ ```
 <role rolename="admin-gui"/>
 <role rolename="manager-gui"/>
 <user username="admin" password="123admin456" roles="admin-gui,manager-gui"/>
+```
 
-Step 7 – Configure Tomcat Web Application Manager
+## Step 7 – Configure Tomcat Web Application Manager
+
 The Tomcat web application manager is configured to allow access only from the localhost. To allow remote access we have to edit the 
- /opt/tomcat/webapps/manager/META-INF/context.xml
-This is not recommended for production environments!!
-Open the context.xml file
- sudo vim /opt/tomcat/webapps/manager/META-INF/context.xml
+ **/opt/tomcat/webapps/manager/META-INF/context.xml**
+ 
+**_This is not recommended for production environments!!_**
 
+Open the context.xml file:
 
-Comment the lines as shown below
+```
+$ sudo vim /opt/tomcat/webapps/manager/META-INF/context.xml
+```
+
+Comment the lines as shown below:
+ ![]()
  
 Save and exit.
+
 Restart tomcat service for changes to take effect.
-sudo systemctl restart tomcat
-After tomcat is restarted we can access the Web Application Manager console at the following link. 
+
+```
+$ sudo systemctl restart tomcat
+```
+
+After tomcat is restarted we can access the Web Application Manager console at the following link.
+
+```
 http://<tomcat-public-ip>:8080/manager/html
-Enter the user and password as configured in Step 6.
+```
 
-Step 8 – Configure Tomcat Virtual Host Manager
+Enter the user and password as configured in **Step 6**.
+
+## Step 8 – Configure Tomcat Virtual Host Manager
+
 The Tomcat virtual host manager is configured to allow access only from the localhost. To allow remote access we have to edit the 
- /opt/tomcat/webapps/host-manager/META-INF/context.xml
-This is not recommended for production environments!!
-Open the context.xml file
- sudo vim /opt/tomcat/webapps/host-manager/META-INF/context.xml
+ **/opt/tomcat/webapps/host-manager/META-INF/context.xml**
 
-Comment the lines as shown below
+**_This is not recommended for production environments!!_**
+
+Open the context.xml file
+
+```
+$ sudo vim /opt/tomcat/webapps/host-manager/META-INF/context.xml
+```
+
+Comment the lines as shown below:
+
+![]()
  
 Save and exit.
-Restart tomcat service for changes to take effect.
-sudo systemctl restart tomcat
-After tomcat is restarted we can access the Virtual Host Manager console at the following link. 
-http://<tomcat-public-ip>:8080/host-manager/html
-Enter the user and password as configured in Step 6.
 
-This concludes our tutorial on setting up Tomcat 9 on Ubuntu 18.04.
+Restart tomcat service for changes to take effect.
+
+```
+$ sudo systemctl restart tomcat
+```
+
+After tomcat is restarted we can access the Virtual Host Manager console at the following link.
+
+```
+http://<tomcat-public-ip>:8080/host-manager/html
+```
+
+Enter the user and password as configured in **Step 6**.
+
+#### This concludes our tutorial on setting up Tomcat 9 on Ubuntu 18.04.
