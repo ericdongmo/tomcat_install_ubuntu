@@ -188,7 +188,8 @@ $ sudo vim /opt/tomcat/webapps/manager/META-INF/context.xml
 ```
 
 Comment the lines as shown below:
- ![]()
+
+ ![](four.png)
  
 Save and exit.
 
@@ -203,6 +204,7 @@ After tomcat is restarted we can access the Web Application Manager console at t
 ```
 http://<tomcat-public-ip>:8080/manager/html
 ```
+![](six.png)
 
 Enter the user and password as configured in **Step 6**.
 
@@ -221,7 +223,7 @@ $ sudo vim /opt/tomcat/webapps/host-manager/META-INF/context.xml
 
 Comment the lines as shown below:
 
-![]()
+![](three.png)
  
 Save and exit.
 
@@ -236,6 +238,8 @@ After tomcat is restarted we can access the Virtual Host Manager console at the 
 ```
 http://<tomcat-public-ip>:8080/host-manager/html
 ```
+
+![](seven.png)
 
 Enter the user and password as configured in **Step 6**.
 
