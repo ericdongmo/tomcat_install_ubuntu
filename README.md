@@ -138,7 +138,7 @@ We can now access tomcat at:
 http://<public-machine-ip>:8080/
 ```
 
-![](five.png)
+![](five.PNG)
 
 To start Tomcat service on system boot:
 
@@ -239,7 +239,7 @@ After tomcat is restarted we can access the Virtual Host Manager console at the 
 http://<tomcat-public-ip>:8080/host-manager/html
 ```
 
-![](seven.png)
+![](seven.PNG)
 
 Enter the user and password as configured in **Step 6**.
 
